@@ -21,7 +21,6 @@ function populate(){
 
         }
 
-        countDown();
 
         showProgress();
     }
@@ -48,17 +47,28 @@ function showProgress() {
 function countDown() {
     var element = document.getElementById("time");
     element.innerHTML = "You have " + quiz.secs + " seconds left";
-    if(quiz.secs < 1) {
-        clearTimeout(timer);
+
+
+
+    quiz.secs--;
+    var timer = setTimeout('countDown()', 1000);
+
+    if(quiz.secs < 0) {
+        
         element.innerHTML = "Time is Up";
         var element = document.getElementById("question");
         element.innerHTML = "The Correct answer is: " + quiz.getQuestionIndex().answer;
-        console.log(timer);
-        quiz.out();
+        var element = document.getElementById("picture");
+        element.innerHTML = "<h1> </h1>";
+        console.log(quiz.getQuestionIndex().answer);
+        clearTimeout(timer);
 
-    };
-    quiz.secs--;
-    var timer = setTimeout('countDown()', 1000);
+        
+        console.log(quiz.questionIndex);
+
+
+    }
+    
 
 
 };
@@ -86,4 +96,8 @@ var questions = [
 
 var quiz = new Quiz(questions);
 
+countDown();
+
 populate();
+
+
